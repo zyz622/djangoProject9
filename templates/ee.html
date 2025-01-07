@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>练习</title>
+</head>
+<body>
+<div>{{ n1 }}</div>
+<div>{{ n2 }}</div>
+<div>{{ n2.0 }}</div>
+<div>{{ n2.1 }}</div>
+<div>{{ n2.2 }}</div>
+<hr/>
+<div>
+
+    {% for item in n2 %}
+        <span>{{ item }}</span>
+    {% endfor %}
+</div>
+<hr/>
+{{ n3 }}
+<hr/>
+{{ n3.name }}
+{{ n3.sl }}
+{{ n3.role }}
+<hr/>
+{% for item in n3.keys %}
+    <li>{{ item }}</li>
+
+{% endfor %}
+
+<hr/>
+<ul>
+    {% for k,v in n3.items %}
+        <li>{{ k }}={{ v }}</li>
+
+    {% endfor %}
+</ul>
+<hr/>
+{{n4.0.name }}
+<hr/>
+{{ n4.1.name }}
+{{ n4.2.role }}
+<hr/>
+{% for item in n4 %}
+    <div>{{ item.name }} {{ item.sl }} {{ item.role }}</div>
+
+
+{% endfor %}
+<hr/>
+
+{% if n4.0.name == "pipen" %}
+    <h1>皮蓬</h1>
+{% else %}
+    <h1>Not</h1>
+    <h1>{{ n4.1.name }}</h1>
+{% endif %}
+
+
+
+</body>
+</html>

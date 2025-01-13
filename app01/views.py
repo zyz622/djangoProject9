@@ -1,7 +1,8 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 import requests
 from app01 import models
 from datetime import date
+
 # Create your views
 # here.
 oo=models.App01Userinfo
@@ -55,6 +56,11 @@ def Info_add(request):
     sex=request.POST.get('xb')
     did=request.POST.get('did')
     oo.objects.create(name=user,password=pwd,age=age,account=ct,create_time=date.today(),gender=sex,depart_id=did)
-    return HttpResponse('添加成功')
+    # return HttpResponse('添加成功')
+    return render(request, 'Info_Add.html')
 def depart(request):
     return render(request,'depart.html')
+def info_delete(request):
+    nid=request.GET.get("nid")
+    oo.objects.filter(id=nid).delete()
+    return redirect('/datalist/')

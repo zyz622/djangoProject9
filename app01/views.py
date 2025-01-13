@@ -1,7 +1,10 @@
 from django.shortcuts import render,HttpResponse
 import requests
-
-# Create your views here.
+from app01 import models
+from datetime import date
+# Create your views
+# here.
+oo=models.App01Userinfo
 def index(request):
     return HttpResponse("aaaa")
 def user_list(request):
@@ -19,3 +22,39 @@ def lianxi(request):
         {"name": "kidd", "sl": 600, "role": "Boss_Kidd"}
     ]
     return render(request,"ee.html",{"n1":name,"n2":role,"n3":infor,"n4":d_list})
+def login(request):
+
+
+    if request.method =="GET":
+        return render(request,"login.html")
+    # print(request.method)
+    # print(user)
+    print(request.POST.get("user"))
+    print(request.POST.get("pw"))
+    User=request.POST.get("user")
+    pw=request.POST.get("pw")
+
+    try:
+        user=oo.objects.get(name=User)
+        if user.password==pw:
+            return HttpResponse("登录成功")
+        else:
+            return render(request,"login.html",{"err_m":"密码错误"})
+    except oo.DoesNotExist:
+        return HttpResponse("用户不存在")
+def GetAll(request):
+    datalist=oo.objects.all()
+    return render(request,"datalist.html",{"datalist":datalist})
+def Info_add(request):
+    if request.method=="GET":
+        return render(request,'Info_Add.html')
+    user=request.POST.get('user')
+    pwd=request.POST.get('pwd')
+    age=request.POST.get('age')
+    ct=request.POST.get('at')
+    sex=request.POST.get('xb')
+    did=request.POST.get('did')
+    oo.objects.create(name=user,password=pwd,age=age,account=ct,create_time=date.today(),gender=sex,depart_id=did)
+    return HttpResponse('添加成功')
+def depart(request):
+    return render(request,'depart.html')
